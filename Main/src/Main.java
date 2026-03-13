@@ -1,33 +1,23 @@
 /**
- * Hotel Booking Management System
- * Demonstrates room types and static availability.
+ * Hotel Booking System
+ * Demonstrates centralized inventory management using HashMap.
  */
-
 public class Main {
 
     public static void main(String[] args) {
 
         System.out.println("=== Hotel Booking System ===");
 
-        Room single = new SingleRoom();
-        Room doubleRoom = new DoubleRoom();
-        Room suite = new SuiteRoom();
+        RoomInventory inventory = new RoomInventory();
 
-        // Static availability variables
-        int singleAvailable = 5;
-        int doubleAvailable = 3;
-        int suiteAvailable = 2;
+        // display inventory
+        inventory.displayInventory();
 
-        System.out.println("\nSingle Room Details:");
-        single.displayDetails();
-        System.out.println("Available: " + singleAvailable);
+        // simulate update
+        System.out.println("\nUpdating availability for Single Room...");
 
-        System.out.println("\nDouble Room Details:");
-        doubleRoom.displayDetails();
-        System.out.println("Available: " + doubleAvailable);
+        inventory.updateAvailability("Single Room", 4);
 
-        System.out.println("\nSuite Room Details:");
-        suite.displayDetails();
-        System.out.println("Available: " + suiteAvailable);
+        inventory.displayInventory();
     }
 }
