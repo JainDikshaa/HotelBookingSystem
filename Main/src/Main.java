@@ -1,6 +1,6 @@
 /**
  * Hotel Booking System
- * Demonstrates centralized inventory management using HashMap.
+ * Demonstrates room search and availability check.
  */
 public class Main {
 
@@ -10,14 +10,8 @@ public class Main {
 
         RoomInventory inventory = new RoomInventory();
 
-        // display inventory
-        inventory.displayInventory();
+        SearchService searchService = new SearchService(inventory);
 
-        // simulate update
-        System.out.println("\nUpdating availability for Single Room...");
-
-        inventory.updateAvailability("Single Room", 4);
-
-        inventory.displayInventory();
+        searchService.displayAvailableRooms();
     }
 }
