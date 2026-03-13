@@ -1,6 +1,9 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Hotel Booking System
- * Demonstrates FIFO booking request queue.
+ * Demonstrates reservation confirmation and room allocation.
  */
 public class Main {
 
@@ -8,14 +11,18 @@ public class Main {
 
         System.out.println("=== Hotel Booking System ===");
 
-        BookingQueue queue = new BookingQueue();
+        RoomInventory inventory = new RoomInventory();
 
-        // guests submit booking requests
-        queue.addRequest(new Reservation("Alice", "Single Room"));
-        queue.addRequest(new Reservation("Bob", "Double Room"));
-        queue.addRequest(new Reservation("Charlie", "Suite Room"));
+        Queue<Reservation> requestQueue = new LinkedList<>();
 
-        // display queue
-        queue.displayRequests();
+        // simulate booking requests
+        requestQueue.add(new Reservation("Alice", "Single Room"));
+        requestQueue.add(new Reservation("Bob", "Double Room"));
+        requestQueue.add(new Reservation("Charlie", "Single Room"));
+
+        BookingService bookingService =
+                new BookingService(inventory, requestQueue);
+
+        bookingService.processBookings();
     }
 }
