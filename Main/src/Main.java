@@ -1,6 +1,6 @@
 /**
  * Hotel Booking System
- * Demonstrates room search and availability check.
+ * Demonstrates FIFO booking request queue.
  */
 public class Main {
 
@@ -8,10 +8,14 @@ public class Main {
 
         System.out.println("=== Hotel Booking System ===");
 
-        RoomInventory inventory = new RoomInventory();
+        BookingQueue queue = new BookingQueue();
 
-        SearchService searchService = new SearchService(inventory);
+        // guests submit booking requests
+        queue.addRequest(new Reservation("Alice", "Single Room"));
+        queue.addRequest(new Reservation("Bob", "Double Room"));
+        queue.addRequest(new Reservation("Charlie", "Suite Room"));
 
-        searchService.displayAvailableRooms();
+        // display queue
+        queue.displayRequests();
     }
 }
