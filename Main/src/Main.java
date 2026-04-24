@@ -1,15 +1,14 @@
 public class Main {
     public static void main(String[] args) {
 
-        CancellationService service = new CancellationService();
+        SharedBookingResource resource = new SharedBookingResource(2);
 
-        // Simulate an existing booking
-        service.addReservation("RES201", "Deluxe");
+        Thread t1 = new Thread(new BookingTask("Guest1", resource));
+        Thread t2 = new Thread(new BookingTask("Guest2", resource));
+        Thread t3 = new Thread(new BookingTask("Guest3", resource));
 
-        // Cancel it
-        service.cancelBooking("RES201", "Deluxe", "ROOM101");
-
-        // Try cancelling again (should fail)
-        service.cancelBooking("RES201", "Deluxe", "ROOM101");
+        t1.start();
+        t2.start();
+        t3.start();
     }
 }
