@@ -1,24 +1,15 @@
 public class Main {
     public static void main(String[] args) {
 
-        String guestName = "Diksha";
-        String roomType = "Deluxe";   // change to test invalid cases
-        int availableRooms = 2;       // change to 0 to test failure
+        CancellationService service = new CancellationService();
 
-        try {
-            // Step 1: Validate BEFORE booking
-            InvalidBookingValidator.validateBooking(guestName, roomType, availableRooms);
+        // Simulate an existing booking
+        service.addReservation("RES201", "Deluxe");
 
-            // Step 2: Proceed only if valid
-            Reservation reservation = new Reservation(guestName, roomType);
-            System.out.println("Booking successful: " + reservation);
+        // Cancel it
+        service.cancelBooking("RES201", "Deluxe", "ROOM101");
 
-        } catch (InvalidBookingException e) {
-            // Step 3: Graceful failure (no crash)
-            System.out.println("Booking failed: " + e.getMessage());
-        }
-
-        // System continues running
-        System.out.println("System is still running...");
+        // Try cancelling again (should fail)
+        service.cancelBooking("RES201", "Deluxe", "ROOM101");
     }
 }
