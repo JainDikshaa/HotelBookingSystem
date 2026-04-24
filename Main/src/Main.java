@@ -1,14 +1,24 @@
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
 
-        SharedBookingResource resource = new SharedBookingResource(2);
+        PersistenceService service = new PersistenceService();
 
-        Thread t1 = new Thread(new BookingTask("Guest1", resource));
-        Thread t2 = new Thread(new BookingTask("Guest2", resource));
-        Thread t3 = new Thread(new BookingTask("Guest3", resource));
+        // Load previous data (startup recovery)
+        Object[] data = service.loadData();
+        List<Reservation> reservations = (List<Reservation>) data[0];
+        Map<String, Integer> inventory = (Map<String, Integer>) data[1];
 
-        t1.start();
-        t2.start();
-        t3.start();
+        // Simulate adding new booking
+        Reservation r1 = new Reservation("Diksha", "Deluxe");
+        reservations.add(r1);
+
+        inventory.put("Deluxe", inventory.getOrDefault("Deluxe", 5) - 1);
+
+        System.out.println("Current reservations: " + reservations.size());
+
+        // Save data before shutdown
+        service.saveData(reservations, inventory);
     }
 }
